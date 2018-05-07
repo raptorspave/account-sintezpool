@@ -56,10 +56,13 @@ class AuthController extends Controller
         if ($authResult) {
             if (Auth::user()->role_id == 1)
                 return redirect()->route('voyager.dashboard');
-            else
+            elseif (Auth::user()->status == 1)
                 return redirect()->route('site.profile');
+            else abort(403, 'Unauthorized action.');
         } else {
-            return redirect()->route('site.auth.login')->with('authError', trans('auth.wrong_password'));
+            return redirect()->back()
+                ->withInput($this->request->only('email', 'remember'))
+                ->with('authError', trans('auth.wrong_password'));
         }
     }
 

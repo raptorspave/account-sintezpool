@@ -12,14 +12,12 @@
                                     {{ csrf_field() }}
                                     @if (session('authError'))
                                     <div class="alert alert-danger">
-                                        <ul>
-                                            <li>{{ session('authError') }}</li>
-                                        </ul>
+                                        {{ session('authError') }}
                                     </div>
                                     @endif
                                     <div class="form-group">
                                         <label>Email address</label>
-                                        <input name="email" type="email" class="form-control" placeholder="Email">
+                                        <input name="email" type="email" class="form-control" placeholder="Email" value="{{ old('email') }}">
                                     </div>
                                     <div class="form-group">
                                         <label>Password</label>
@@ -27,7 +25,7 @@
                                     </div>
                                     <div class="checkbox">
                                         <label>
-        									<input name="remember" type="checkbox"> Remember Me
+        									<input name="remember" type="checkbox" {{ old('remember')? 'checked': '' }}> Remember Me
         								</label>
                                         <label class="pull-right">
         									<a href="#">Forgotten Password?</a>
