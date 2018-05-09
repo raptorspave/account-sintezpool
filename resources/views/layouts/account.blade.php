@@ -1,5 +1,7 @@
 @extends('layouts.base')
 
+@section('title'){{ $title or '' }}@endsection
+
 @push('head_styles')
     <!--Remodal-->
     <link rel="stylesheet" href="profile/css//remodal.css">
@@ -7,6 +9,8 @@
 @endpush
 
 @section('wrapper')
+<!-- Main wrapper  -->
+<div id="main-wrapper">
     <!-- header header  -->
     @include('parts.header')
     <!-- End header header -->
@@ -26,6 +30,8 @@
         <!-- End footer -->
     </div>
     <!-- End Page wrapper  -->
+</div>
+<!-- End Main wrapper -->
 @endsection
 
 @section('modal')

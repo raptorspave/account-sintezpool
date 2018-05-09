@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="profile/images/favicon.png">
-    <title>Account - {{ $title or '' }}</title>
+    <title>Account - @yield('title')</title>
     @stack('head_styles')
     <!-- Bootstrap Core CSS -->
     <link href="profile/css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
@@ -26,12 +26,8 @@
 </head>
 <body class="fix-header fix-sidebar">
 @include('parts.preloader')
-<!-- Main wrapper  -->
-<div id="main-wrapper">
-    @yield('wrapper')
-</div>
+@yield('wrapper')
 @yield('modal')
-<!-- End Main wrapper -->
     <!-- All Jquery -->
     <script src="profile/js/lib/jquery/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->

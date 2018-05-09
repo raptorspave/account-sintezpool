@@ -21,7 +21,7 @@ Route::get('/logout', 'AuthController@logout')->name('site.auth.logout');
 
 Route::get('/', function () {
     return view('pages.data-center');
-})->middleware('status')->name('site.profile');
+})->middleware('check', 'status')->name('site.profile');
 
 
 /**

@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
     public function register()
     {
-        return view('auth.register', [
-            'title' => 'Регистрация',
-        ]);
+        return view('auth.register');
     }
 
     public function registerPost()
@@ -25,27 +22,34 @@ class AuthController extends Controller
             'is_confirmed' => 'accepted'
         ]);
 
-        DB::table('users')->insert([
+        $newUserModel = User::create([
             'role_id' => 2,
             'name' => $this->request->input('name'),
             'email' => $this->request->input('email'),
             'password' => bcrypt($this->request->input('password')),
-            'created_at' => \Carbon\Carbon::createFromTimestamp(time())->format('Y-m-d H:i:s'),
-            'updated_at' => \Carbon\Carbon::createFromTimestamp(time())->format('Y-m-d H:i:s'),
         ]);
 
-        return redirect()->route('site.auth.login');
+        if ($newUserModel)
+            return redirect()->route('site.auth.login')
+                ->with('authSuccess', trans('auth.auth_success'));
+        else
+            abort(500);
     }
 
     public function login()
     {
-        return view('auth.login', [
-            'title' => 'Вход в систему',
-        ]);
+        return view('auth.login');
     }
 
     public function loginPost()
     {
+        $user = User::status($this->request->input('email'))->first();
+
+        if (!$user || (!$user->status && $user->role_id != 1))
+            return redirect()->back()
+                ->withInput($this->request->only('email', 'remember'))
+                ->with('authError', trans('auth.access_denied'));
+
         $remember = $this->request->input('remember') ? true : false;
 
         $authResult = Auth::attempt([
@@ -56,9 +60,8 @@ class AuthController extends Controller
         if ($authResult) {
             if (Auth::user()->role_id == 1)
                 return redirect()->route('voyager.dashboard');
-            elseif (Auth::user()->status == 1)
+            elseif (Auth::user()->status)
                 return redirect()->route('site.profile');
-            else abort(403, 'Unauthorized action.');
         } else {
             return redirect()->back()
                 ->withInput($this->request->only('email', 'remember'))

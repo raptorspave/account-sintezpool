@@ -16,4 +16,6 @@ return [
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'wrong_password' => 'Wrong login or password',
+    'auth_success' => 'Congratulations, you are successfully registered!',
+    'access_denied' => 'Unauthorized action.',
 ];

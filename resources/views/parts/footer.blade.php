@@ -1,1 +1,1 @@
-        <footer class="footer"> © 2018 All rights reserved. </footer>
+        <footer class="footer"> &copy; 2018 All rights reserved. </footer>
