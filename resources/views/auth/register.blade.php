@@ -11,6 +11,9 @@
                 <div class="col-lg-4">
                     <div class="login-content card">
                         <div class="login-form">
+                            <div class="form-group text-center">
+                                <img src="/profile/images/logo-text.png" class="sintez-logo-lg" alt="">
+                            </div>
                             <h4>Register</h4>
                             <form method="POST" enctype="application/x-www-form-urlencoded" action="{{ route('site.auth.registerPost') }}">
                                 {{ csrf_field() }}

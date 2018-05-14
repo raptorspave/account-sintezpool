@@ -6974,3 +6974,10 @@ tbody tr td:last-child {
   }
 }
 
+.sintez-logo-lg {
+    width: 200px;
+}
+
+.sintez-logo {
+    width: 115px;
+}

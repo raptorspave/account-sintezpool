@@ -4,10 +4,10 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="index.html">
                     <!-- Logo icon -->
-                    <b><img src="profile/images/logo.png" alt="homepage" class="dark-logo" /></b>
+                    <!-- <b><img src="/profile/images/logo.png" alt="homepage" class="dark-logo" /></b> -->
                     <!--End Logo icon -->
                     <!-- Logo text -->
-                    <span><img src="profile/images/logo-text.png" alt="homepage" class="dark-logo" /></span>
+                    <span><img class="sintez-logo" src="/profile/images/logo-text.png" alt="" class="dark-logo" /></span>
                 </a>
             </div>
             <!-- End Logo -->

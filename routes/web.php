@@ -19,9 +19,18 @@ Route::post('/register', 'AuthController@registerPost')->name('site.auth.registe
 
 Route::get('/logout', 'AuthController@logout')->name('site.auth.logout');
 
-Route::get('/', function () {
-    return view('pages.data-center');
-})->middleware('check', 'status')->name('site.profile');
+/**
+ *	Account
+ */
+
+Route::get('/', 'FarmController@index')
+	->middleware('check', 'status')
+	->name('site.home');
+
+Route::get('/farm/{farmID}', 'FarmController@show')
+	->middleware('check', 'status')
+	->where('farmID', '[0-9]+')
+	->name('site.farm');
 
 
 /**

@@ -4,8 +4,8 @@
 
 @push('head_styles')
     <!--Remodal-->
-    <link rel="stylesheet" href="profile/css//remodal.css">
-    <link rel="stylesheet" href="profile/css//remodal-default-theme.css">
+    <link rel="stylesheet" href="/profile/css//remodal.css">
+    <link rel="stylesheet" href="/profile/css//remodal-default-theme.css">
 @endpush
 
 @section('wrapper')
@@ -39,15 +39,15 @@
 
 @push('bottom_scripts')
     <!--Remodal js-->
-    <script src="profile/js/remodal.js"></script>
+    <script src="/profile/js/remodal.js"></script>
 
-    <script src="profile/js/lib/datatables/datatables.min.js"></script>
-    <script src="profile/js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
-    <script src="profile/js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
-    <script src="profile/js/lib/datatables/cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-    <script src="profile/js/lib/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
-    <script src="profile/js/lib/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
-    <script src="profile/js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
-    <script src="profile/js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
-    <script src="profile/js/lib/datatables/datatables-init.js"></script>
+    <script src="/profile/js/lib/datatables/datatables.min.js"></script>
+    <script src="/profile/js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="/profile/js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+    <script src="/profile/js/lib/datatables/cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="/profile/js/lib/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="/profile/js/lib/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="/profile/js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+    <script src="/profile/js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+    <script src="/profile/js/lib/datatables/datatables-init.js"></script>
 @endpush

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class AuthController extends Controller
 {
@@ -58,10 +59,10 @@ class AuthController extends Controller
         ], $remember);
 
         if ($authResult) {
-            if (Auth::user()->role_id == 1)
+            if (Gate::allows('is.admin'))
                 return redirect()->route('voyager.dashboard');
-            elseif (Auth::user()->status)
-                return redirect()->route('site.profile');
+            elseif (Gate::allows('is.status'))
+                return redirect()->route('site.home');
         } else {
             return redirect()->back()
                 ->withInput($this->request->only('email', 'remember'))
