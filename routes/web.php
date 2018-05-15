@@ -32,6 +32,13 @@ Route::get('/farm/{farmID}', 'FarmController@show')
 	->where('farmID', '[0-9]+')
 	->name('site.farm');
 
+/**
+ *	Test
+ */
+
+Route::get('/test', function () {
+	//
+});
 
 /**
  *	Voyager
