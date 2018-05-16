@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use TCG\Voyager\Models\Menu;
+use App\Models\Transaction;
 
 class FarmController extends Controller
 {
@@ -13,7 +14,8 @@ class FarmController extends Controller
      */
     public function index()
     {
-        return $this->show(1);
+        // return $this->show(1);
+        return redirect()->route('site.farm', ['id' => 1]);
     }
 
     /**
@@ -47,10 +49,10 @@ class FarmController extends Controller
     {
         $nameMenu = 'farm';
 
-        $menu_items = Menu::with('items')
+        $menu_items = Menu::select('id')
             ->where('name', $nameMenu)
             ->first()
-            ->items;
+            ->parent_items;
 
         foreach ($menu_items as $item) {
             $farm = parameters($item->parameters)[$nameMenu];

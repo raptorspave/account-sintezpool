@@ -27,18 +27,16 @@ Route::get('/', 'FarmController@index')
 	->middleware('check', 'status')
 	->name('site.home');
 
-Route::get('/farm/{farmID}', 'FarmController@show')
+Route::get('/farm/{id}', 'FarmController@show')
 	->middleware('check', 'status')
-	->where('farmID', '[0-9]+')
+	->where('id', '[0-9]+')
 	->name('site.farm');
 
 /**
  *	Test
  */
 
-Route::get('/test', function () {
-	//
-});
+Route::get('/test', 'IndexController@index');
 
 /**
  *	Voyager
