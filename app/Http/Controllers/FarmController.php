@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use TCG\Voyager\Models\Menu;
-use App\Models\Transaction;
+use App\Repository\FarmRepo;
 
 class FarmController extends Controller
 {
@@ -45,29 +44,20 @@ class FarmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(FarmRepo $farm, $id)
     {
-        $nameMenu = 'farm';
+        $name_menu = 'farm';
 
-        $menu_items = Menu::select('id')
-            ->where('name', $nameMenu)
-            ->first()
-            ->parent_items;
+        $title = $farm->menu($id, $name_menu);
+        if(!$title) abort(404);
 
-        foreach ($menu_items as $item) {
-            $farm = parameters($item->parameters)[$nameMenu];
-
-            if($farm == $id){
-                $title = $item->title;
-                break;
-        }}
-
-        if(empty($title)) abort(404);
+        $incomes = $farm->farm($id);
 
         return view('pages.farm', [
-            'title' => isset($title)? $title: '',
-            'farm_menu' => menu($nameMenu, 'menu.farm-menu')
-            ]);
+            'title' => $title,
+            'farm_menu' => menu($name_menu, 'menu.farm-menu'),
+            'incomes' => $incomes,
+        ]);
     }
 
     /**

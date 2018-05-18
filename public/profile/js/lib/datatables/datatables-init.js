@@ -43,9 +43,9 @@ $(document).ready(function() {
             'copy', 'csv', 'excel', 'pdf', 'print'
         ]
     });
-$('#transactionTableBTC').DataTable({
-    "displayLength": 6,
-});
-$('#transactionTableETH').DataTable({
-    "displayLength": 6,
-});
+// $('#transactionTableBTC').DataTable({
+//     "displayLength": 6,
+// });
+// $('#transactionTableETH').DataTable({
+//     "displayLength": 6,
+// });

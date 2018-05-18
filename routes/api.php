@@ -16,3 +16,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+/**
+ *
+ */
+
+Route::get('/transaction/{farm_id}/{currency_id}', 'Api\FarmController@transaction')
+	->where(['farm_id' => '[0-9]+', 'currency_id' => '[0-9]+']);

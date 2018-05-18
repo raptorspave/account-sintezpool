@@ -1,6 +1,8 @@
 @extends('layouts.account')
 
 @section('container')
+@if (is_array($incomes))
+    @foreach ($incomes as $income)
         <!-- Container fluid  -->
         <div class="container-fluid">
             <!-- Start Page Content -->
@@ -8,52 +10,52 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-title">
-                            <h4>BTC total income</h4>
+                            <h4>{{ $income['name'] }} total income</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th>BTC</th>
+                                        <th>{{ $income['name'] }}</th>
                                         <th>USD</th>
                                         <th>Period</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>0.000001</td>
+                                        <th scope="row">{{ $income['day']['crypto'] }}</th>
+                                        <td>{{ $income['day']['usd'] }}</td>
                                         <td><span class="badge badge-primary">1 day</span></td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>0.000002</td>
+                                        <th scope="row">{{ $income['week']['crypto'] }}</th>
+                                        <td>{{ $income['week']['usd'] }}</td>
                                         <td><span class="badge badge-success">1 week</span></td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>0.000001</td>
+                                        <th scope="row">{{ $income['month']['crypto'] }}</th>
+                                        <td>{{ $income['month']['usd'] }}</td>
                                         <td><span class="badge badge-danger">1 month</span></td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>0.000001</td>
+                                        <th scope="row">{{ $income['months']['crypto'] }}</th>
+                                        <td>{{ $income['months']['usd'] }}</td>
                                         <td><span class="badge badge-warning">3 month</span></td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>0.000002</td>
+                                        <th scope="row">{{ $income['halfyear']['crypto'] }}</th>
+                                        <td>{{ $income['halfyear']['usd'] }}</td>
                                         <td><span class="badge badge-info">6 month</span></td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>0.000001</td>
+                                        <th scope="row">{{ $income['year']['crypto'] }}</th>
+                                        <td>{{ $income['year']['usd'] }}</td>
                                         <td><span class="badge badge-dark">1 year</span></td>
                                     </tr>
-												<tr>
-                                        <th scope="row">1</th>
-                                        <td>0.000001</td>
+									<tr>
+                                        <th scope="row">{{ $income['total']['crypto'] }}</th>
+                                        <td>{{ $income['total']['usd'] }}</td>
                                         <td><span class="badge badge-pink">Total</span></td>
                                     </tr>
                                     </tbody>
@@ -66,76 +68,13 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-title">
-                            <h4>BTC transactions </h4>
+                            <h4>{{ $income['name'] }} transactions </h4>
                             <button type="button" class="btn btn-info btn-xs m-l-5 right-float" data-remodal-target="addModal"><i class="ti-plus"></i> Add</button>
                             <div class="right-float sweetalert m-t-15">
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="transactionTableBTC" class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Amount</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th scope="row">02.05.2018</th>
-                                        <td>0.000000666 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            @include('pages.card-body')
                         </div>
                     </div>
                 </div>
@@ -145,148 +84,18 @@
             <!-- End PAge Content -->
         </div>
         <!-- End Container fluid  -->
-        <!-- Container fluid  -->
+    @endforeach
+@else
         <div class="container-fluid">
-            <!-- Start Page Content -->
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-title">
-                            <h4>ETH total income</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>ETH</th>
-                                        <th>USD</th>
-                                        <th>Period</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>0.000001</td>
-                                        <td><span class="badge badge-primary">1 day</span></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>0.000002</td>
-                                        <td><span class="badge badge-success">1 week</span></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>0.000001</td>
-                                        <td><span class="badge badge-danger">1 month</span></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>0.000001</td>
-                                        <td><span class="badge badge-warning">3 month</span></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>0.000002</td>
-                                        <td><span class="badge badge-info">6 month</span></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>0.000001</td>
-                                        <td><span class="badge badge-dark">1 year</span></td>
-                                    </tr>
-												<tr>
-                                        <th scope="row">1</th>
-                                        <td>0.000001</td>
-                                        <td><span class="badge badge-pink">Total</span></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        <h4>Транзакций не найдено!</h4>
                     </div>
                 </div>
-                <!-- /# column -->
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-title">
-                            <h4>ETH transactions </h4>
-                            <button type="button" class="btn btn-info btn-xs m-l-5 right-float" data-remodal-target="addModal"><i class="ti-plus"></i> Add</button>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="transactionTableETH" class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Amount</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th scope="row">02.05.2018</th>
-                                        <td>0.000000666 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">03.05.2018</th>
-                                        <td>0.0000000777 <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /# column -->
             </div>
-            <!-- /# row -->
-            <!-- End PAge Content -->
         </div>
-        <!-- End Container fluid  -->
+@endif
 @endsection
 
 @section('modal')
