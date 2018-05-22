@@ -32,6 +32,22 @@ Route::get('/farm/{id}', 'FarmController@show')
 	->where('id', '[0-9]+')
 	->name('site.farm');
 
+Route::middleware(['check', 'status'])
+	->prefix('transaction')
+	->group(function () {
+	Route::post('{id}/edit', 'FarmController@edit')
+		->where('id', '[0-9]+')
+		->name('site.transaction.edit');
+
+	Route::post('{id}/delete', 'FarmController@delete')
+		->where('id', '[0-9]+')
+		->name('site.transaction.delete');
+
+	Route::post('{farm_id}/add', 'FarmController@add')
+		->where('farm_id', '[0-9]+')
+		->name('site.transaction.add');
+});
+
 /**
  *	Test
  */

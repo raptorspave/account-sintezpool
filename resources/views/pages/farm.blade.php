@@ -69,9 +69,11 @@
                     <div class="card">
                         <div class="card-title">
                             <h4>{{ $income['name'] }} transactions </h4>
-                            <button type="button" class="btn btn-info btn-xs m-l-5 right-float" data-remodal-target="addModal"><i class="ti-plus"></i> Add</button>
+                            @if ($access_transactions['add'])
+                            <button data-currency="{{ $income['id'] }}" data-action="/transaction/{{ $farm_id }}/add" type="button" class="add-transaction btn btn-info btn-xs m-l-5 right-float"><i class="ti-plus"></i> Add</button>
                             <div class="right-float sweetalert m-t-15">
                             </div>
+                            @endif
                         </div>
                         <div class="card-body">
                             @include('pages.card-body')
@@ -99,6 +101,13 @@
 @endsection
 
 @section('modal')
+    @if ($access_transactions['add'])
 	@include('parts.add-modal')
+    @endif
+    @if ($access_transactions['edit'])
 	@include('parts.edit-modal')
+    @endif
+    @if ($access_transactions['delete'])
+    @include('parts.delete-modal')
+    @endif
 @endsection

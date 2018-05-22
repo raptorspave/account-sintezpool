@@ -15,8 +15,8 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('farm_id');
-            $table->integer('currency_id');
+            $table->integer('farm_id')->index();
+            $table->integer('currency_id')->index();
             $table->unsignedDecimal('price', 12, 8);
             $table->timestamp('transaction_at')->useCurrent();
             $table->timestamps();

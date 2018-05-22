@@ -53,10 +53,19 @@ class FarmController extends Controller
 
         $incomes = $farm->farm($id);
 
+        $access = $farm->access('transactions');
+
+        if($access['add'])
+            $modal_currency = $farm->currency();
+        else $modal_currency = '';
+
         return view('pages.farm', [
             'title' => $title,
             'farm_menu' => menu($name_menu, 'menu.farm-menu'),
             'incomes' => $incomes,
+            'access_transactions' => $access,
+            'modal_currency' => $modal_currency,
+            'farm_id' => $id,
         ]);
     }
 
@@ -66,9 +75,17 @@ class FarmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(FarmRepo $farm, $id)
     {
-        //
+        $this->validate($this->request, [
+            'date' => 'required|date_format:"Y-m-d"',
+            'price' => 'required|regex:/^([0-9]{1,4}\.[0-9]{1,8})$/'
+        ]);
+
+        if($farm->transaction_edit($id, $this->request))
+            return redirect()->back();
+        else
+            abort(403);
     }
 
     /**
@@ -78,9 +95,18 @@ class FarmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function add(FarmRepo $farm, $farm_id)
     {
-        //
+        $this->validate($this->request, [
+            'date' => 'required|date_format:"Y-m-d"',
+            'currency' => 'required|exists:currencies,id',
+            'price' => 'required|regex:/^([0-9]{1,4}\.[0-9]{1,8})$/'
+        ]);
+
+        if($farm->transaction_add($farm_id, $this->request))
+            return redirect()->back();
+        else
+            abort(403);
     }
 
     /**
@@ -89,8 +115,11 @@ class FarmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete(FarmRepo $farm, $id)
     {
-        //
+        if($farm->transaction_delete($id))
+            return redirect()->back();
+        else
+            abort(403);
     }
 }

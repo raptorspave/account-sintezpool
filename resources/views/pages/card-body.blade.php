@@ -12,8 +12,12 @@
             <tr>
                 <th scope="row">{{ $transaction->date }}</th>
                 <td>{{ $transaction->price }}
-                    <a class="edit-transaction-btn" href="#" data-remodal-target="editModal"><i class="fa fa-edit"></i></a>
-                    <a class="delete-transaction-btn text-danger" data-id='' href="#" data-remodal-target="deleteModal"><i class="fa fa-trash"></i></a>
+                    @if ($access_transactions['edit'])
+                    <a data-date="{{ $transaction->modal_date }}" data-price="{{ $transaction->price }}" class="edit-transaction" href="/transaction/{{ $transaction->id }}/edit"><i class="fa fa-edit"></i></a>
+                    @endif
+                    @if ($access_transactions['delete'])
+                    <a class="delete-transaction text-danger" href="/transaction/{{ $transaction->id }}/delete"><i class="fa fa-trash"></i></a>
+                    @endif
                 </td>
             </tr>
             @endforeach

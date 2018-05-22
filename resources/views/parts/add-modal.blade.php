@@ -1,24 +1,28 @@
 <!-- Add Modal -->
 <div class="remodal-bg"></div>
-<div class="remodal" data-remodal-id="addModal">
+<div class="remodal" data-remodal-id="addModal" data-remodal-options="hashTracking: false">
     <button data-remodal-action="close" class="remodal-close"></button>
     <h1>Add transaction</h1>
     <p>
-    <form action="#">
+    <form action="#" method="post">
+        {{ csrf_field() }}
         <div class="form-group">
             <label class="control-label">Date of transaction</label>
-            <input type="date" class="form-control" placeholder="dd/mm/yyyy">
+            <input name="date" type="date" class="form-control" placeholder="dd/mm/yyyy" required>
         </div>
+        @if (is_object($modal_currency))
         <div class="form-group">
             <label class="control-label">Currency</label>
-            <select class="form-control custom-select">
-                <option value="">BTC</option>
-                <option value="">ETH</option>
+            <select name="currency" class="form-control custom-select">
+                @foreach ($modal_currency as $currency)
+                <option value="{{ $currency->id }}">{{ $currency->name }}</option>
+                @endforeach
             </select>
         </div>
+        @endif
         <div class="form-group">
             <label class="control-label">Value</label>
-            <input type="text" id="valueCrypt" class="form-control" placeholder="0.000000777">
+            <input pattern="^([0-9]{1,4}\.[0-9]{1,8})$" name="price" type="text" id="valueCrypt" class="form-control" placeholder="0.00000077" required>
         </div>
         <div class="form-actions">
             <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>

@@ -23,22 +23,3 @@ if (!function_exists('uploads_path')) {
         return storage_path('app.uploads');
     }
 }
-
-if (!function_exists('parameters')) {
-    function parameters($parameters)
-    {
-        if (is_null($parameters)) {
-            $parameters = [];
-        }
-
-        if (is_string($parameters)) {
-            $parameters = json_decode($parameters, true);
-        } elseif (is_array($parameters)) {
-            $parameters = $parameters;
-        } elseif (is_object($parameters)) {
-            $parameters = json_decode(json_encode($parameters), true);
-        }
-
-        return $parameters;
-    }
-}

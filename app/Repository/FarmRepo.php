@@ -2,7 +2,10 @@
 
 namespace App\Repository;
 
+use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\DB;
+use TCG\Voyager\Facades\Voyager;
 
 use TCG\Voyager\Models\Menu;
 use App\Models\Currency;
@@ -13,24 +16,43 @@ class FarmRepo
     private $currency_id = false;
     private $paginate = 6;
 
+    /**
+     *
+     */
+
+    public function access($table_name)
+    {
+        $access['browse'] = Voyager::can('browse_' . $table_name);
+        $access['read'] = Voyager::can('read_' . $table_name);
+        $access['edit'] = Voyager::can('edit_' . $table_name);
+        $access['add'] = Voyager::can('add_' . $table_name);
+        $access['delete'] = Voyager::can('delete_' . $table_name);
+
+        return $access;
+    }
+
 	/**
      *
      */
 
 	public function menu($farm_id, $name_menu)
 	{
-        $menu_items = Menu::select('id')
+        $menu = Menu::select('id')
             ->where('name', $name_menu)
-            ->first()
-            ->parent_items;
+            ->first();
 
-        foreach ($menu_items as $item) {
-            $farm = parameters($item->parameters)[$name_menu];
+        if($menu){
+            $menu_items = $menu->parent_items;
 
-            if($farm == $farm_id){
-                $title = $item->title;
-                break;
-        }}
+            foreach ($menu_items as $item) {
+                $farm = isset($item->parameters->farm)? $item->parameters->farm: false;
+
+                if($farm == $farm_id){
+                    $title = $item->title;
+                    break;
+                }
+            }
+        }
 
         return isset($title)? $title: false;
 	}
@@ -76,6 +98,7 @@ class FarmRepo
             foreach ($currencies as $currency) {
                 $id = $currency->id;
                 $p = $currency->set_price > 0? $currency->set_price: $currency->api_price;
+                $income[$id]['id'] = $id;
                 $income[$id]['name'] = $currency->name;
                 $income[$id]['transactions'] = $this->transaction($farm_id, $id);
 
@@ -96,9 +119,20 @@ class FarmRepo
      *
      */
 
+    public function currency()
+    {
+        $currencies = Currency::select('id', 'name')->get();
+
+        return $currencies?: false;
+    }
+
+    /**
+     *
+     */
+
     public function transaction($farm_id, $currency_id)
     {
-        $transactions = Transaction::select('currency_id', 'price', DB::raw('DATE_FORMAT(`transaction_at`, "%d.%m.%Y") as `date`'))
+        $transactions = Transaction::select('id', 'currency_id', 'price', DB::raw('DATE_FORMAT(`transaction_at`, "%d.%m.%Y") as `date`'), DB::raw('DATE_FORMAT(`transaction_at`, "%Y-%m-%d") as `modal_date`'))
             ->where('farm_id', $farm_id)
             ->where('currency_id', $currency_id)
             ->orderBy('transaction_at', 'desc')
@@ -126,5 +160,58 @@ class FarmRepo
         }
 
         return isset($price)? $price: false;
+    }
+
+    /**
+     *
+     */
+
+    public function transaction_edit($id, $request)
+    {
+        if(Voyager::can('edit_transactions')){
+            $transaction = Transaction::find($id);
+            $transaction->price = $request->input('price');
+            $transaction->transaction_at = $request->input('date');
+            $transaction->save();
+
+            return $transaction;
+        }
+
+        return false;
+    }
+
+    /**
+     *
+     */
+
+    public function transaction_delete($id)
+    {
+        if(Voyager::can('delete_transactions')){
+            $transaction = Transaction::find($id)->delete();
+
+            return $transaction;
+        }
+
+        return false;
+    }
+
+    /**
+     *
+     */
+
+    public function transaction_add($farm_id, $request)
+    {
+        if(Voyager::can('add_transactions')){
+            $transaction = new Transaction;
+            $transaction->farm_id = $farm_id;
+            $transaction->currency_id = $request->input('currency');
+            $transaction->price = $request->input('price');
+            $transaction->transaction_at = $request->input('date');
+            $transaction->save();
+
+            return $transaction;
+        }
+
+        return false;
     }
 }
