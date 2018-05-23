@@ -7,7 +7,11 @@
         {{ csrf_field() }}
         <div class="form-group">
             <label class="control-label">Date of transaction</label>
-            <input name="date" type="date" class="form-control" placeholder="dd/mm/yyyy" required>
+            <input name="date" type='text' class="form-control" id="datetimepicker-2" placeholder="YYYY-MM-DD HH:mm" required>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Comment</label>
+            <input name="comment" type="text" class="form-control" maxlength="60">
         </div>
         <div class="form-group">
             <label class="control-label">Value</label>

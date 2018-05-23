@@ -34,7 +34,8 @@ Route::get('/farm/{id}', 'FarmController@show')
 
 Route::middleware(['check', 'status'])
 	->prefix('transaction')
-	->group(function () {
+	->group(function ()
+{
 	Route::post('{id}/edit', 'FarmController@edit')
 		->where('id', '[0-9]+')
 		->name('site.transaction.edit');

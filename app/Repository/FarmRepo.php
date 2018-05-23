@@ -98,7 +98,6 @@ class FarmRepo
             foreach ($currencies as $currency) {
                 $id = $currency->id;
                 $p = $currency->set_price > 0? $currency->set_price: $currency->api_price;
-                $income[$id]['id'] = $id;
                 $income[$id]['name'] = $currency->name;
                 $income[$id]['transactions'] = $this->transaction($farm_id, $id);
 
@@ -132,7 +131,7 @@ class FarmRepo
 
     public function transaction($farm_id, $currency_id)
     {
-        $transactions = Transaction::select('id', 'currency_id', 'price', DB::raw('DATE_FORMAT(`transaction_at`, "%d.%m.%Y") as `date`'), DB::raw('DATE_FORMAT(`transaction_at`, "%Y-%m-%d") as `modal_date`'))
+        $transactions = Transaction::select('id', 'currency_id', 'price', 'comment', DB::raw('DATE_FORMAT(`transaction_at`, "%d.%m.%Y") as `date`'), DB::raw('DATE_FORMAT(`transaction_at`, "%Y-%m-%d %H:%i") as `modal_date`'))
             ->where('farm_id', $farm_id)
             ->where('currency_id', $currency_id)
             ->orderBy('transaction_at', 'desc')
@@ -171,6 +170,7 @@ class FarmRepo
         if(Voyager::can('edit_transactions')){
             $transaction = Transaction::find($id);
             $transaction->price = $request->input('price');
+            $transaction->comment = $request->input('comment');
             $transaction->transaction_at = $request->input('date');
             $transaction->save();
 
@@ -206,6 +206,7 @@ class FarmRepo
             $transaction->farm_id = $farm_id;
             $transaction->currency_id = $request->input('currency');
             $transaction->price = $request->input('price');
+            $transaction->comment = $request->input('comment');
             $transaction->transaction_at = $request->input('date');
             $transaction->save();
 

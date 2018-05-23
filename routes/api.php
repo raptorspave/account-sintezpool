@@ -22,4 +22,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  */
 
 Route::get('/transaction/{farm_id}/{currency_id}', 'Api\FarmController@transaction')
+	->middleware('check', 'status')
 	->where(['farm_id' => '[0-9]+', 'currency_id' => '[0-9]+']);

@@ -4,6 +4,7 @@
             <thead>
             <tr>
                 <th>Date</th>
+                <th>Comment</th>
                 <th>Amount</th>
             </tr>
             </thead>
@@ -11,6 +12,7 @@
             @foreach ($income['transactions'] as $transaction)
             <tr>
                 <th scope="row">{{ $transaction->date }}</th>
+                <td class="comment">{{ $transaction->comment }}</td>
                 <td>{{ $transaction->price }}
                     @if ($access_transactions['edit'])
                     <a data-date="{{ $transaction->modal_date }}" data-price="{{ $transaction->price }}" class="edit-transaction" href="/transaction/{{ $transaction->id }}/edit"><i class="fa fa-edit"></i></a>

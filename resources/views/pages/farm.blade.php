@@ -2,7 +2,7 @@
 
 @section('container')
 @if (is_array($incomes))
-    @foreach ($incomes as $income)
+    @foreach ($incomes as $key => $income)
         <!-- Container fluid  -->
         <div class="container-fluid">
             <!-- Start Page Content -->
@@ -70,7 +70,7 @@
                         <div class="card-title">
                             <h4>{{ $income['name'] }} transactions </h4>
                             @if ($access_transactions['add'])
-                            <button data-currency="{{ $income['id'] }}" data-action="/transaction/{{ $farm_id }}/add" type="button" class="add-transaction btn btn-info btn-xs m-l-5 right-float"><i class="ti-plus"></i> Add</button>
+                            <button data-currency="{{ $key }}" data-action="/transaction/{{ $farm_id }}/add" type="button" class="add-transaction btn btn-info btn-xs m-l-5 right-float"><i class="ti-plus"></i> Add</button>
                             <div class="right-float sweetalert m-t-15">
                             </div>
                             @endif

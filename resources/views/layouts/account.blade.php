@@ -3,6 +3,7 @@
 @section('title'){{ $title or '' }}@endsection
 
 @push('head_styles')
+    <link rel="stylesheet" href="/profile/js/lib/datetimepicker/bootstrap-datetimepicker.min.css">
     <!--Remodal-->
     <link rel="stylesheet" href="/profile/css//remodal.css">
     <link rel="stylesheet" href="/profile/css//remodal-default-theme.css">
@@ -50,4 +51,6 @@
     <script src="/profile/js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
     <script src="/profile/js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
     <script src="/profile/js/lib/datatables/datatables-init.js"></script>
+    <script src="/profile/js/lib/datetimepicker/moment.min.js"></script>
+    <script src="/profile/js/lib/datetimepicker/bootstrap-datetimepicker.min.js"></script>
 @endpush

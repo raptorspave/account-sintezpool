@@ -78,8 +78,9 @@ class FarmController extends Controller
     public function edit(FarmRepo $farm, $id)
     {
         $this->validate($this->request, [
-            'date' => 'required|date_format:"Y-m-d"',
-            'price' => 'required|regex:/^([0-9]{1,4}\.[0-9]{1,8})$/'
+            'date' => 'required|date_format:"Y-m-d H:i"',
+            'price' => 'required|regex:/^([0-9]{1,4}\.[0-9]{1,8})$/',
+            'comment' => 'nullable|max:120'
         ]);
 
         if($farm->transaction_edit($id, $this->request))
@@ -98,9 +99,10 @@ class FarmController extends Controller
     public function add(FarmRepo $farm, $farm_id)
     {
         $this->validate($this->request, [
-            'date' => 'required|date_format:"Y-m-d"',
+            'date' => 'required|date_format:"Y-m-d H:i"',
             'currency' => 'required|exists:currencies,id',
-            'price' => 'required|regex:/^([0-9]{1,4}\.[0-9]{1,8})$/'
+            'price' => 'required|regex:/^([0-9]{1,4}\.[0-9]{1,8})$/',
+            'comment' => 'nullable|max:120'
         ]);
 
         if($farm->transaction_add($farm_id, $this->request))
