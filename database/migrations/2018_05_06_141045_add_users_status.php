@@ -14,7 +14,7 @@ class AddUsersStatus extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('status')->default(false)->after('remember_token');
+            $table->text('status')->nullable()->after('remember_token');
         });
     }
 

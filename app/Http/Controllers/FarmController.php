@@ -7,43 +7,41 @@ use App\Repository\FarmRepo;
 class FarmController extends Controller
 {
     /**
-     * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        // return $this->show(1);
-        return redirect()->route('site.farm', ['id' => 1]);
+        $first_farm = explode(',', auth()->user()->status)[0];
+
+        if(auth()->user()->role_id == 1 && !$first_farm)
+            $first_farm = 1;
+
+        return redirect()->route('site.farm', ['farm_id' => $first_farm]);
     }
 
     /**
-     * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
         //
     }
 
     /**
-     * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         //
     }
 
     /**
-     * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
+
     public function show(FarmRepo $farm, $id)
     {
         $name_menu = 'farm';
@@ -70,11 +68,9 @@ class FarmController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
+
     public function edit(FarmRepo $farm, $id)
     {
         $this->validate($this->request, [
@@ -90,12 +86,9 @@ class FarmController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
+
     public function add(FarmRepo $farm, $farm_id)
     {
         $this->validate($this->request, [
@@ -112,11 +105,9 @@ class FarmController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
+
     public function delete(FarmRepo $farm, $id)
     {
         if($farm->transaction_delete($id))
