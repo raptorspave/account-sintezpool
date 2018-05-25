@@ -29,7 +29,7 @@
                                 <div class="form-group">
                                     <label>Email address</label>
                                     <input name="email" type="text" class="form-control" placeholder="Email" value="{{ old('email') }}">
-                                    @if ($errors->has('name'))
+                                    @if ($errors->has('email'))
                                     <div class="alert alert-danger">
                                         {{ $errors->first('email') }}
                                     </div>
@@ -38,7 +38,7 @@
                                 <div class="form-group">
                                     <label>Password</label>
                                     <input name="password" type="password" class="form-control" placeholder="Password">
-                                    @if ($errors->has('name'))
+                                    @if ($errors->has('password'))
                                     <div class="alert alert-danger">
                                         {{ $errors->first('password') }}
                                     </div>
@@ -47,7 +47,7 @@
                                 <div class="form-group">
                                     <label>Confirm Password</label>
                                     <input name="password2" type="password" class="form-control" placeholder="Confirm Password">
-                                    @if ($errors->has('name'))
+                                    @if ($errors->has('password2'))
                                     <div class="alert alert-danger">
                                         {{ $errors->first('password2') }}
                                     </div>
@@ -57,7 +57,7 @@
                                     <label>
 									  <input name="is_confirmed" type="checkbox" {{ old('is_confirmed') ? 'checked' : '' }}> Agree the terms and policy
 								    </label>
-                                    @if ($errors->has('name'))
+                                    @if ($errors->has('is_confirmed'))
                                     <div class="alert alert-danger">
                                         {{ $errors->first('is_confirmed') }}
                                     </div>
