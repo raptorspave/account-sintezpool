@@ -35,6 +35,38 @@ class FarmRepo
      *
      */
 
+    public function first_farm()
+    {
+        $menu_items = Menu::select('id')
+            ->where('name', 'farm')
+            ->first()
+            ->parent_items;
+
+        if($menu_items){
+            foreach ($menu_items as $item) {
+                if(isset($item->parameters->farm))
+                    $farms[] = $item->parameters->farm;
+            }
+        }
+
+        if(isset($farms)){
+            if(auth()->user()->role_id == 1)
+                return $farms[0];
+
+            $user_farm = explode(',', auth()->user()->status);
+
+            foreach ($farms as $farm) {
+                if(in_array($farm, $user_farm)) return $farm;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     *
+     */
+
 	public function menu($farm_id, $name_menu)
 	{
         $menu = Menu::select('id')
@@ -56,6 +88,20 @@ class FarmRepo
 
         return isset($title)? $title: false;
 	}
+
+    /**
+     *
+     */
+
+    public function farm_tcg()
+    {
+        $menu_items = Menu::select('id')
+            ->where('name', 'farm')
+            ->first()
+            ->parent_items;
+
+        return $menu_items;
+    }
 
 	/**
      *

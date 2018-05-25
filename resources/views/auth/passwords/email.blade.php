@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title', 'Вход в систему')
+@section('title', 'Reset Password')
 
 @section('wrapper')
 <div class="container">

@@ -11,6 +11,16 @@
 |
 */
 
+/**
+ *	Test
+ */
+
+// Route::get('/test', 'IndexController@index');
+
+/**
+ *	Auth
+ */
+
 Route::get('/login', 'AuthController@login')->name('site.auth.login');
 Route::post('/login', 'AuthController@loginPost')->name('site.auth.loginPost');
 
@@ -23,16 +33,19 @@ Route::get('/logout', 'AuthController@logout')->name('site.auth.logout');
  *	Forgot Password
  */
 
-Route::get('/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')
-	->name('password.request');
+Route::prefix('password')->group(function ()
+{
+	Route::get('reset', 'Auth\ForgotPasswordController@showLinkRequestForm')
+		->name('password.request');
 
-Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')
-	->name('password.email');
+	Route::get('reset/{token}', 'Auth\ResetPasswordController@showResetForm')
+		->name('password.reset');
 
-Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
+	Route::post('email', 'Auth\ForgotPasswordController@sendResetLinkEmail')
+		->name('password.email');
 
-Route::post('/password/reset', 'Auth\ResetPasswordController@reset')
-	->name('password.reset');
+	Route::post('reset', 'Auth\ResetPasswordController@reset');
+});
 
 /**
  *	Account
@@ -64,12 +77,6 @@ Route::prefix('transaction')->group(function ()
 		->where('farm_id', '[0-9]+')
 		->name('site.transaction.add');
 });
-
-/**
- *	Test
- */
-
-Route::get('/test', 'IndexController@index');
 
 /**
  *	Voyager

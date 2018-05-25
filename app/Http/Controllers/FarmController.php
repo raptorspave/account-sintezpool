@@ -10,14 +10,11 @@ class FarmController extends Controller
      *
      */
 
-    public function index()
+    public function index(FarmRepo $farm)
     {
-        $first_farm = explode(',', auth()->user()->status)[0];
-
-        if(auth()->user()->role_id == 1 && !$first_farm)
-            $first_farm = 1;
-
-        return redirect()->route('site.farm', ['farm_id' => $first_farm]);
+        return redirect()->route('site.farm', [
+            'farm_id' => $farm->first_farm()
+        ]);
     }
 
     /**
@@ -82,7 +79,7 @@ class FarmController extends Controller
         if($farm->transaction_edit($id, $this->request))
             return redirect()->back();
         else
-            abort(403);
+            abort(500);
     }
 
     /**
@@ -101,7 +98,7 @@ class FarmController extends Controller
         if($farm->transaction_add($farm_id, $this->request))
             return redirect()->back();
         else
-            abort(403);
+            abort(500);
     }
 
     /**
@@ -113,6 +110,6 @@ class FarmController extends Controller
         if($farm->transaction_delete($id))
             return redirect()->back();
         else
-            abort(403);
+            abort(500);
     }
 }
