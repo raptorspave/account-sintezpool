@@ -15,7 +15,7 @@
         </div>
         <div class="form-group">
             <label class="control-label">Value</label>
-            <input pattern="^([0-9]{1,4}\.[0-9]{1,8})$" name="price" type="text" id="valueCrypt" class="form-control" placeholder="1234.12345678" required>
+            <input pattern="^([0-9]{1,12}\.[0-9]{1,8})$" name="price" type="text" id="valueCrypt" class="form-control" placeholder="1234.12345678" required>
         </div>
         <div class="form-actions">
             <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>

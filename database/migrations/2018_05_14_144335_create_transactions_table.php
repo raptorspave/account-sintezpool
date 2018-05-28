@@ -17,7 +17,7 @@ class CreateTransactionsTable extends Migration
             $table->increments('id');
             $table->integer('farm_id')->index();
             $table->integer('currency_id')->index();
-            $table->unsignedDecimal('price', 12, 8);
+            $table->unsignedDecimal('price', 20, 8);
             $table->string('comment')->nullable();
             $table->timestamp('transaction_at')->useCurrent();
             $table->timestamps();

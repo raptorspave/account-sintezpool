@@ -72,7 +72,7 @@ class FarmController extends Controller
     {
         $this->validate($this->request, [
             'date' => 'required|date_format:"Y-m-d H:i"',
-            'price' => 'required|regex:/^([0-9]{1,4}\.[0-9]{1,8})$/',
+            'price' => 'required|regex:/^([0-9]{1,12}\.[0-9]{1,8})$/',
             'comment' => 'nullable|max:120'
         ]);
 
@@ -91,7 +91,7 @@ class FarmController extends Controller
         $this->validate($this->request, [
             'date' => 'required|date_format:"Y-m-d H:i"',
             'currency' => 'required|exists:currencies,id',
-            'price' => 'required|regex:/^([0-9]{1,4}\.[0-9]{1,8})$/',
+            'price' => 'required|regex:/^([0-9]{1,12}\.[0-9]{1,8})$/',
             'comment' => 'nullable|max:120'
         ]);
 

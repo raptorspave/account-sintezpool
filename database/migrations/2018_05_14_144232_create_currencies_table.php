@@ -17,8 +17,8 @@ class CreateCurrenciesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('api_url')->nullable();
-            $table->unsignedDecimal('api_price', 12, 8)->default(1);
-            $table->unsignedDecimal('set_price', 12, 8)->nullable();
+            $table->unsignedDecimal('api_price', 20, 8)->default(1);
+            $table->unsignedDecimal('set_price', 20, 8)->nullable();
             $table->timestamps();
         });
     }
