@@ -44,30 +44,27 @@ class AuthController extends Controller
 
     public function loginPost()
     {
-        $user = User::status($this->request->input('email'))->first();
-
-        if (!$user || (!$user->status && $user->role_id != 1))
-            return redirect()->back()
-                ->withInput($this->request->only('email', 'remember'))
-                ->with('authError', trans('auth.access_denied'));
-
         $remember = $this->request->input('remember') ? true : false;
 
-        $authResult = Auth::attempt([
+        $auth_result = Auth::attempt([
             'email' => $this->request->input('email'),
             'password' => $this->request->input('password'),
         ], $remember);
 
-        if ($authResult) {
+        if ($auth_result) {
             if (Gate::allows('is.admin'))
                 return redirect()->route('voyager.dashboard');
+
             elseif (Gate::allows('is.status'))
                 return redirect()->route('site.home');
-        } else {
-            return redirect()->back()
-                ->withInput($this->request->only('email', 'remember'))
-                ->with('authError', trans('auth.wrong_password'));
+
+            $auth_error = trans('auth.access_denied');
         }
+        else $auth_error = trans('auth.wrong_password');
+
+        return redirect()->back()
+                    ->withInput($this->request->only('email', 'remember'))
+                    ->with('authError', $auth_error);
     }
 
     public function logout()
