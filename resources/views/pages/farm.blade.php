@@ -93,9 +93,11 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <h4>Транзакций не найдено!</h4>
+                        @if ($access_transactions['add'])
                         <div class="card-title">
                             <button data-currency="1" data-action="/transaction/{{ $farm_id }}/add" type="button" class="add-transaction btn btn-info btn-xs m-l-5 right-float"><i class="ti-plus"></i> Add</button>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
